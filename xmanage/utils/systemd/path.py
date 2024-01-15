@@ -87,6 +87,8 @@ if shutil.which(CMD_SD_PATH):
             SYSTEMD_SEARCH_USER_ENVIRONMENT_GENERATOR = "systemd-search-user-environment-generator"
 
         def __init__(self):
+            names = {i.value: i.name for i in self.table}
+            self.__names: Dict[str, str] = names
             self.__items: Dict[str, Tuple[str, ...]] = dict()
             for line in os.popen(CMD_SD_PATH).readlines():
                 name, path = line.split(":", 1)
@@ -95,10 +97,25 @@ if shutil.which(CMD_SD_PATH):
                 dirs: List[str] = path.strip().split(":")
                 self.__items[name.strip()] = tuple([i.strip() for i in dirs])
 
+        def __dir__(self):
+            dirs: List[str] = dir(self.__class__)
+            dirs.extend(self.__names.values())
+            return dirs
+
         def __iter__(self):
             return iter(self.__items.keys())
 
-        def __getitem__(self, key) -> Tuple[str, ...]:
-            return self.__items[key]
+        def __getitem__(self, name) -> Tuple[str, ...]:
+            return self.__items[name]
+
+        def __getattr__(self, name) -> Tuple[str, ...]:
+            if name not in self.__names.values():
+                raise AttributeError(f"{CMD_SD_PATH} has no '{name}'")
+            item: __sd_path.table = getattr(self.table, name)
+            return self.__items[item.value]
+
+        @property
+        def titles(self) -> List[str]:
+            return list(self.__names.keys())
 
     sd_path = __sd_path()
