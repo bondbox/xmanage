@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 
 __name__ = "xmanage"
 __version__ = "0.1"
-__description__ = "System management tool."
+__description__ = "System and service management tool."
 __url_home__ = "https://github.com/bondbox/xmanage"
 __url_code__ = __url_home__
 __url_docs__ = __url_home__
