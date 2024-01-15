@@ -1,7 +1,6 @@
 # coding:utf-8
 
-
 try:
-    from .utils import systemd_path
+    from .path import sd_path as systemd_path
 except Exception:
     pass
