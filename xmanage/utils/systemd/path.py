@@ -81,10 +81,14 @@ if shutil.which(CMD_SD_PATH):
             MODULES_LOAD = "modules-load"
             CATALOG = "catalog"
             SYSTEMD_SEARCH_NETWORK = "systemd-search-network"
-            SYSTEMD_SYSTEM_ENVIRONMENT_GENERATOR = "systemd-system-environment-generator"
-            SYSTEMD_USER_ENVIRONMENT_GENERATOR = "systemd-user-environment-generator"
-            SYSTEMD_SEARCH_SYSTEM_ENVIRONMENT_GENERATOR = "systemd-search-system-environment-generator"
-            SYSTEMD_SEARCH_USER_ENVIRONMENT_GENERATOR = "systemd-search-user-environment-generator"
+            SYSTEMD_SYSTEM_ENVIRONMENT_GENERATOR = \
+                "systemd-system-environment-generator"
+            SYSTEMD_USER_ENVIRONMENT_GENERATOR = \
+                "systemd-user-environment-generator"
+            SYSTEMD_SEARCH_SYSTEM_ENVIRONMENT_GENERATOR = \
+                "systemd-search-system-environment-generator"
+            SYSTEMD_SEARCH_USER_ENVIRONMENT_GENERATOR = \
+                "systemd-search-user-environment-generator"
 
         def __init__(self):
             names = {i.value: i.name for i in self.table}
@@ -113,6 +117,24 @@ if shutil.which(CMD_SD_PATH):
                 raise AttributeError(f"{CMD_SD_PATH} has no '{name}'")
             item: __sd_path.table = getattr(self.table, name)
             return self.__items[item.value]
+
+        @property
+        def systemd_system_conf_dir(self) -> str:
+            return self.SYSTEMD_SYSTEM_CONF[0]
+
+        @property
+        def systemd_system_unit_dirs(self) -> Tuple[str, ...]:
+            return self.SYSTEMD_SEARCH_SYSTEM_UNIT + self.SYSTEMD_SYSTEM_UNIT
+
+        @property
+        def systemd_system_generator_dirs(self) -> Tuple[str, ...]:
+            return self.SYSTEMD_SEARCH_SYSTEM_GENERATOR \
+                + self.SYSTEMD_SYSTEM_GENERATOR
+
+        @property
+        def systemd_system_dirs(self) -> Tuple[str, ...]:
+            return self.SYSTEMD_SYSTEM_CONF + self.systemd_system_unit \
+                + self.systemd_system_generator
 
         @property
         def titles(self) -> List[str]:
