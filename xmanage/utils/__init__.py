@@ -9,7 +9,7 @@ from .attribute import __url_code__
 from .attribute import __url_docs__
 from .attribute import __url_home__
 from .attribute import __version__
-
+from .systemd import systemd_service
 
 try:
     from .systemd import systemd_path
