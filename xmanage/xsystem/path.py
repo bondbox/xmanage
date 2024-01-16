@@ -13,7 +13,7 @@ try:
     def add_cmd_path(_arg: argp):
         _arg.add_argument(dest="sd_path_titles", type=str, nargs="*",
                           default=[], action="extend", metavar="NAME",
-                          choices=systemd_path.titles+[[]],
+                          choices=systemd_path.titles + [[]],
                           help="the path value with this name is shown")
 
     @run_command(add_cmd_path)
