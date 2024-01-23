@@ -23,6 +23,7 @@ class sd_service:
     @classmethod
     def from_string(cls, value: str) -> "sd_service":
         config: ConfigParser = ConfigParser()
+        config.optionxform = lambda option: option  # type: ignore
         config.read_string(value)
         return sd_service(config)
 
