@@ -21,11 +21,15 @@ class sd_service:
         self.__config: ConfigParser = config
 
     @classmethod
-    def from_string(cls, value: str) -> "sd_service":
+    def read_string(cls, value: str) -> ConfigParser:
         config: ConfigParser = ConfigParser()
         config.optionxform = lambda option: option  # type: ignore
         config.read_string(value)
-        return sd_service(config)
+        return config
+
+    @classmethod
+    def from_string(cls, value: str) -> "sd_service":
+        return sd_service(cls.read_string(value))
 
     @classmethod
     def from_file(cls, file: str) -> "sd_service":
