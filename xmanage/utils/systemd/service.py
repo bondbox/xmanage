@@ -40,6 +40,7 @@ class sd_service:
 
         if allowed_dirs is not None:
             assert path in allowed_dirs, f"'{path}' is not in {allowed_dirs}"
+        assert os.path.isdir(path), f"'{path}' not exists or is file"
 
         def get_service_unit_name(s: str) -> str:
             return s if s.endswith(".service") else ".".join([s, "service"])
