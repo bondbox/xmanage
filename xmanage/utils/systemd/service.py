@@ -15,25 +15,27 @@ except Exception:
 
 class sd_service:
 
-    def __init__(self):
-        pass
+    def __init__(self, config: ConfigParser):
+        assert isinstance(config, ConfigParser), \
+            f"unexpected type: {type(config)}"
+        self.__config: ConfigParser = config
 
     @classmethod
-    def read(cls, file: str) -> ConfigParser:
-        assert os.path.exists(file), f"'{file}' not found."
-        assert os.path.isfile(file), f"'{file}' is not a regular file."
-        return cls.read_string(open(file).read())
-
-    @classmethod
-    def read_string(cls, value: str) -> ConfigParser:
+    def from_string(cls, value: str) -> "sd_service":
         config: ConfigParser = ConfigParser()
         config.read_string(value)
-        return config
+        return sd_service(config)
 
-    def create_unit(self, path: str, unit: str, conf: ConfigParser) -> None:
+    @classmethod
+    def from_file(cls, file: str) -> "sd_service":
+        assert os.path.exists(file), f"'{file}' not found."
+        assert os.path.isfile(file), f"'{file}' is not a regular file."
+        return sd_service.from_string(open(file).read())
+
+    def create_unit(self, path: str, unit: str,
+                    allow_update: bool = False) -> None:
         assert isinstance(path, str), f"unexpected type: {type(path)}"
         assert isinstance(unit, str), f"unexpected type: {type(unit)}"
-        assert isinstance(conf, ConfigParser), f"unexpected type: {type(conf)}"
 
         if allowed_dirs is not None:
             assert path in allowed_dirs, f"'{path}' is not in {allowed_dirs}"
@@ -42,8 +44,8 @@ class sd_service:
             return s if s.endswith(".service") else ".".join([s, "service"])
 
         file: str = os.path.join(path, get_service_unit_name(unit))
-        if os.path.exists(file):
+        if os.path.exists(file) and not allow_update:
             raise FileExistsError(f"'{file}' already exists.")
 
         with open(file, "w") as hdl:
-            conf.write(hdl)
+            self.__config.write(hdl)
