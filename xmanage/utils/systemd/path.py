@@ -109,10 +109,10 @@ if shutil.which(CMD_SD_PATH):
         def __iter__(self):
             return iter(self.__items.keys())
 
-        def __getitem__(self, name) -> Tuple[str, ...]:
+        def __getitem__(self, name: str) -> Tuple[str, ...]:
             return self.__items[name]
 
-        def __getattr__(self, name) -> Tuple[str, ...]:
+        def __getattr__(self, name: str) -> Tuple[str, ...]:
             if name not in self.__names.values():
                 raise AttributeError(f"{CMD_SD_PATH} has no '{name}'")
             item: __sd_path.table = getattr(self.table, name)
