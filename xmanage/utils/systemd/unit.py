@@ -24,7 +24,7 @@ class sd_unit_file_section:
         self.__section: SectionProxy = section
 
     def __iter__(self):
-        return self.items
+        return iter(self.items)
 
     def __getattr__(self, attr: str) -> Any:
         try:
