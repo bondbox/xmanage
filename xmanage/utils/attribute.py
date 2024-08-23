@@ -2,7 +2,7 @@
 
 from urllib.parse import urljoin
 
-__name__ = "xmanage"
+__project__ = "xmanage"
 __version__ = "0.3.2"
 __description__ = "System and service management tool."
 __url_home__ = "https://github.com/bondbox/xmanage/"

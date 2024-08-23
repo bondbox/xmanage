@@ -2,12 +2,15 @@
 
 from configparser import ConfigParser
 from configparser import SectionProxy
+from datetime import datetime
 from enum import Enum
 import os
 from typing import Optional
 from typing import Set
 from typing import Tuple
 
+from ..attribute import __project__
+from ..attribute import __version__
 from .unit import sd_unit_file
 from .unit import sd_unit_file_section
 
@@ -435,9 +438,13 @@ class sd_service(sd_unit_file):
         def get_service_unit_name(s: str) -> str:
             return s if s.endswith(".service") else ".".join([s, "service"])
 
-        file: str = os.path.join(path, get_service_unit_name(unit))
+        name: str = get_service_unit_name(unit)
+        file: str = os.path.join(path, name)
         if os.path.exists(file) and not allow_update:
             raise FileExistsError(f"'{file}' already exists.")
 
         with open(file, "w") as hdl:
+            now: datetime = datetime.now()
+            hdl.write(f"# {name} created by {__project__} {__version__}\n")
+            hdl.write(f"# {now.strftime('%a %b %d %H:%M:%S CST %Y')}\n\n\n")
             self.parser.write(hdl)

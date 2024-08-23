@@ -10,7 +10,7 @@ from xarg import commands
 from xarg import run_command
 
 from ..utils import __description__
-from ..utils import __name__
+from ..utils import __project__
 from ..utils import __url_home__
 from ..utils import __version__
 
@@ -23,7 +23,7 @@ except Exception:
     pass
 
 
-@add_command(__name__)
+@add_command(__project__)
 def add_cmd(_arg: argp):
     pass
 
