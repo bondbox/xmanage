@@ -426,25 +426,27 @@ class sd_service(sd_unit_file):
         assert os.path.isfile(file), f"'{file}' is not a regular file."
         return sd_service.from_string(open(file).read())
 
-    def create_unit(self, path: str, unit: str,
+    def create_unit(self, unit: str, folder: Optional[str] = None,
                     allow_update: bool = False) -> None:
-        assert isinstance(path, str), f"unexpected type: {type(path)}"
+        if folder is None:
+            folder = sd_path.systemd_system_conf_dir
         assert isinstance(unit, str), f"unexpected type: {type(unit)}"
+        assert isinstance(folder, str), f"unexpected type: {type(folder)}"
 
         if allowed_dirs is not None:
-            assert path in allowed_dirs, f"'{path}' is not in {allowed_dirs}"
-        assert os.path.isdir(path), f"'{path}' not exists or is file"
+            assert folder in allowed_dirs, f"'{folder}' is not in {allowed_dirs}"  # noqa
+        assert os.path.isdir(folder), f"'{folder}' not exists or is file"
 
         def get_service_unit_name(s: str) -> str:
             return s if s.endswith(".service") else ".".join([s, "service"])
 
-        name: str = get_service_unit_name(unit)
-        file: str = os.path.join(path, name)
-        if os.path.exists(file) and not allow_update:
-            raise FileExistsError(f"'{file}' already exists.")
+        unitname: str = get_service_unit_name(unit)
+        filepath: str = os.path.join(folder, unitname)
+        if os.path.exists(filepath) and not allow_update:
+            raise FileExistsError(f"'{filepath}' already exists.")
 
-        with open(file, "w") as hdl:
+        with open(filepath, "w") as hdl:
             now: datetime = datetime.now()
-            hdl.write(f"# {name} created by {__project__} {__version__}\n")
+            hdl.write(f"# {unitname} created by {__project__} {__version__}\n")
             hdl.write(f"# {now.strftime('%a %b %d %H:%M:%S CST %Y')}\n\n\n")
             self.parser.write(hdl)
