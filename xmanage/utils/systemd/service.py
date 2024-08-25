@@ -426,22 +426,28 @@ class sd_service(sd_unit_file):
         assert os.path.isfile(file), f"'{file}' is not a regular file."
         return sd_service.from_string(open(file).read())
 
-    def create_unit(self, unit: str, folder: Optional[str] = None,
-                    allow_update: bool = False) -> str:
+    @classmethod
+    def format_service_unit(cls, unit: str) -> str:
+        return unit if unit.endswith(".service") else ".".join([unit, "service"])  # noqa
+
+    @classmethod
+    def service_unit_path(cls, unit: str, folder: Optional[str] = None) -> str:
         if folder is None:
             folder = sd_path.systemd_system_conf_dir
+
         assert isinstance(unit, str), f"unexpected type: {type(unit)}"
         assert isinstance(folder, str), f"unexpected type: {type(folder)}"
 
         if allowed_dirs is not None:
             assert folder in allowed_dirs, f"'{folder}' is not in {allowed_dirs}"  # noqa
+
         assert os.path.isdir(folder), f"'{folder}' not exists or is file"
+        return os.path.join(folder, cls.format_service_unit(unit))
 
-        def get_service_unit_name(s: str) -> str:
-            return s if s.endswith(".service") else ".".join([s, "service"])
-
-        unitname: str = get_service_unit_name(unit)
-        filepath: str = os.path.join(folder, unitname)
+    def create_unit(self, unit: str, folder: Optional[str] = None,
+                    allow_update: bool = False) -> str:
+        unitname: str = self.format_service_unit(unit)
+        filepath: str = self.service_unit_path(unitname, folder)
         if os.path.exists(filepath) and not allow_update:
             raise FileExistsError(f"'{filepath}' already exists.")
 
@@ -452,3 +458,13 @@ class sd_service(sd_unit_file):
             self.parser.write(hdl)
 
         return filepath
+
+    @classmethod
+    def delete_unit(cls, unit: str, folder: Optional[str] = None) -> bool:
+        unitname: str = cls.format_service_unit(unit)
+        filepath: str = cls.service_unit_path(unitname, folder)
+
+        if os.path.isfile(filepath):
+            os.remove(filepath)
+
+        return not os.path.exists(filepath)
