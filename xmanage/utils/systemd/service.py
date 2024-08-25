@@ -427,7 +427,7 @@ class sd_service(sd_unit_file):
         return sd_service.from_string(open(file).read())
 
     def create_unit(self, unit: str, folder: Optional[str] = None,
-                    allow_update: bool = False) -> None:
+                    allow_update: bool = False) -> str:
         if folder is None:
             folder = sd_path.systemd_system_conf_dir
         assert isinstance(unit, str), f"unexpected type: {type(unit)}"
@@ -450,3 +450,5 @@ class sd_service(sd_unit_file):
             hdl.write(f"# {unitname} created by {__project__} {__version__}\n")
             hdl.write(f"# {now.strftime('%a %b %d %H:%M:%S CST %Y')}\n\n\n")
             self.parser.write(hdl)
+
+        return filepath
