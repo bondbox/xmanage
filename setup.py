@@ -6,7 +6,7 @@ from setuptools import setup
 from xmanage.utils import __author__
 from xmanage.utils import __author_email__
 from xmanage.utils import __description__
-from xmanage.utils import __name__
+from xmanage.utils import __project__
 from xmanage.utils import __url_bugs__
 from xmanage.utils import __url_code__
 from xmanage.utils import __url_docs__
@@ -24,7 +24,7 @@ def all_requirements():
 
 
 setup(
-    name=__name__,
+    name=__project__,
     version=__version__,
     description=__description__,
     url=__url_home__,
