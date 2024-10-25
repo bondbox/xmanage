@@ -7,10 +7,10 @@ from xmanage.utils import __author__
 from xmanage.utils import __author_email__
 from xmanage.utils import __description__
 from xmanage.utils import __project__
-from xmanage.utils import __url_bugs__
-from xmanage.utils import __url_code__
-from xmanage.utils import __url_docs__
-from xmanage.utils import __url_home__
+from xmanage.utils import __urlbugs__
+from xmanage.utils import __urlcode__
+from xmanage.utils import __urldocs__
+from xmanage.utils import __urlhome__
 from xmanage.utils import __version__
 
 
@@ -27,11 +27,11 @@ setup(
     name=__project__,
     version=__version__,
     description=__description__,
-    url=__url_home__,
+    url=__urlhome__,
     author=__author__,
     author_email=__author_email__,
-    project_urls={"Source Code": __url_code__,
-                  "Bug Tracker": __url_bugs__,
-                  "Documentation": __url_docs__},
+    project_urls={"Source Code": __urlcode__,
+                  "Bug Tracker": __urlbugs__,
+                  "Documentation": __urldocs__},
     packages=find_packages(include=["xmanage*"], exclude=["tests"]),
     install_requires=all_requirements())

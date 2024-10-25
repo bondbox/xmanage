@@ -1,17 +1,17 @@
 # coding:utf-8
 
-from .attribute import __author__
-from .attribute import __author_email__
-from .attribute import __description__
-from .attribute import __project__
-from .attribute import __url_bugs__
-from .attribute import __url_code__
-from .attribute import __url_docs__
-from .attribute import __url_home__
-from .attribute import __version__
-from .systemd import systemd_service
+from .attribute import __author__  # noqa:F401
+from .attribute import __author_email__  # noqa:F401
+from .attribute import __description__  # noqa:F401
+from .attribute import __project__  # noqa:F401
+from .attribute import __urlbugs__  # noqa:F401
+from .attribute import __urlcode__  # noqa:F401
+from .attribute import __urldocs__  # noqa:F401
+from .attribute import __urlhome__  # noqa:F401
+from .attribute import __version__  # noqa:F401
+from .systemd import systemd_service  # noqa:F401
 
 try:
-    from .systemd import systemd_path
+    from .systemd import systemd_path  # noqa:F401
 except Exception:
     pass

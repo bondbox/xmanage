@@ -1,8 +1,8 @@
 # coding:utf-8
 
-from .utils import systemd_service
+from .utils import systemd_service  # noqa:F401
 
 try:
-    from .utils import systemd_path
+    from .utils import systemd_path  # noqa:F401
 except Exception:
     pass

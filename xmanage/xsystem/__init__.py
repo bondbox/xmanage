@@ -11,7 +11,7 @@ from xarg import run_command
 
 from ..utils import __description__
 from ..utils import __project__
-from ..utils import __url_home__
+from ..utils import __urlhome__
 from ..utils import __version__
 
 subs: List[add_command] = list()
@@ -40,4 +40,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         root=add_cmd,
         argv=argv,
         description=__description__,
-        epilog=f"For more, please visit {__url_home__}.")
+        epilog=f"For more, please visit {__urlhome__}.")
