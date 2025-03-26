@@ -14,8 +14,7 @@ from typing import ValuesView
 
 
 class sd_unit_file_section:
-    """unit file section
-    """
+    """unit file section"""
 
     def __init__(self, name: str, section: SectionProxy):
         assert isinstance(name, str), f"unexpected type: {type(name)}"
@@ -60,24 +59,20 @@ class sd_unit_file_section:
         return self.__section.values()
 
     def get_option(self, option: str, fallback: Optional[str] = "") -> Union[str, Any]:  # noqa
-        """Get an option value.
-        """
+        """Get an option value."""
         return self.__section.get(option, fallback)
 
     def set_option(self, option: str, value: str):
-        """Set value for an option.
-        """
+        """Set value for an option."""
         self.__section[option] = value
 
     def setdefault(self, option: str, default: str) -> str:
-        """Set default value for an option.
-        """
+        """Set default value for an option."""
         return self.__section.setdefault(option, default)
 
 
 class sd_uf_sec_unit(sd_unit_file_section):
-    """[Unit] Section Options
-    """
+    """[Unit] Section Options"""
     SECTION_NAME: str = "Unit"
 
     # https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#%5BUnit%5D%20Section%20Options
@@ -467,8 +462,7 @@ class sd_uf_sec_unit(sd_unit_file_section):
 
 
 class sd_uf_sec_install(sd_unit_file_section):
-    """[Install] Section Options
-    """
+    """[Install] Section Options"""
     SECTION_NAME: str = "Install"
 
     # https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html#%5BInstall%5D%20Section%20Options
@@ -534,8 +528,7 @@ class sd_uf_sec_install(sd_unit_file_section):
 
 
 class sd_unit_file:
-    """A plain text ini-style unit file.
-    """
+    """A plain text ini-style unit file."""
 
     def __init__(self, parser: ConfigParser):
         assert isinstance(parser, ConfigParser), \

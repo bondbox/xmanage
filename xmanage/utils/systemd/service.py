@@ -23,8 +23,7 @@ except Exception:
 
 
 class sd_uf_sec_service(sd_unit_file_section):
-    """[Service] Section Options
-    """
+    """[Service] Section Options"""
     SECTION_NAME: str = "Service"
 
     # https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#Options
