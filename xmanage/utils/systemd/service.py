@@ -9,14 +9,14 @@ from typing import Optional
 from typing import Set
 from typing import Tuple
 
-from ..attribute import __project__
-from ..attribute import __version__
-from .unit import sd_unit_file
-from .unit import sd_unit_file_section
+from xmanage.attribute import __project__
+from xmanage.attribute import __version__
+from xmanage.utils.systemd.unit import sd_unit_file
+from xmanage.utils.systemd.unit import sd_unit_file_section
 
 allowed_dirs: Optional[Tuple[str, ...]] = None
 try:
-    from .path import sd_path
+    from xmanage.utils.systemd.path import sd_path
     allowed_dirs = sd_path.systemd_system_dirs
 except Exception:
     pass

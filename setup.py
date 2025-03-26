@@ -3,15 +3,15 @@
 from setuptools import find_packages
 from setuptools import setup
 
-from xmanage.utils import __author__
-from xmanage.utils import __author_email__
-from xmanage.utils import __description__
-from xmanage.utils import __project__
-from xmanage.utils import __urlbugs__
-from xmanage.utils import __urlcode__
-from xmanage.utils import __urldocs__
-from xmanage.utils import __urlhome__
-from xmanage.utils import __version__
+from xmanage.attribute import __author__
+from xmanage.attribute import __author_email__
+from xmanage.attribute import __description__
+from xmanage.attribute import __project__
+from xmanage.attribute import __urlbugs__
+from xmanage.attribute import __urlcode__
+from xmanage.attribute import __urldocs__
+from xmanage.attribute import __urlhome__
+from xmanage.attribute import __version__
 
 
 def all_requirements():

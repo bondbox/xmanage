@@ -7,7 +7,7 @@ from xkits import commands
 from xkits import run_command
 
 try:
-    from ..utils import systemd_path
+    from xmanage.utils import systemd_path
 
     @add_command("path", help="show system and user paths")
     def add_cmd_path(_arg: argp):

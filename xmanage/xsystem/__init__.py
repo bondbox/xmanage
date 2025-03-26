@@ -9,15 +9,15 @@ from xkits import argp
 from xkits import commands
 from xkits import run_command
 
-from ..utils import __description__
-from ..utils import __project__
-from ..utils import __urlhome__
-from ..utils import __version__
+from xmanage.attribute import __description__
+from xmanage.attribute import __project__
+from xmanage.attribute import __urlhome__
+from xmanage.attribute import __version__
 
 subs: List[add_command] = list()
 
 try:
-    from .path import add_cmd_path
+    from xmanage.xsystem.path import add_cmd_path
     subs.append(add_cmd_path)
 except Exception:
     pass
