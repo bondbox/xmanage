@@ -1,8 +1,8 @@
 # coding:utf-8
 
-from xmanage.utils import systemd_service  # noqa:F401
+from xmanage.systemd import systemd_service  # noqa:F401
 
 try:
-    from xmanage.utils import systemd_path  # noqa:F401
+    from xmanage.systemd import systemd_path  # noqa:F401
 except Exception:  # pylint: disable=broad-exception-caught
     pass

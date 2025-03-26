@@ -11,12 +11,12 @@ from typing import Tuple
 
 from xmanage.attribute import __project__
 from xmanage.attribute import __version__
-from xmanage.utils.systemd.unit import sd_unit_file
-from xmanage.utils.systemd.unit import sd_unit_file_section
+from xmanage.systemd.unit import sd_unit_file
+from xmanage.systemd.unit import sd_unit_file_section
 
 allowed_dirs: Optional[Tuple[str, ...]] = None
 try:
-    from xmanage.utils.systemd.path import sd_path
+    from xmanage.systemd.path import sd_path
     allowed_dirs = sd_path.systemd_system_dirs
 except Exception:
     pass
