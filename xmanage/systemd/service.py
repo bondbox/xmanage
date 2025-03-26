@@ -18,8 +18,8 @@ allowed_dirs: Optional[Tuple[str, ...]] = None
 try:
     from xmanage.systemd.path import sd_path
     allowed_dirs = sd_path.systemd_system_dirs
-except Exception:
-    pass
+except Exception:  # pragma: no cover
+    pass  # pragma: no cover
 
 
 class sd_uf_sec_service(sd_unit_file_section):
@@ -427,7 +427,7 @@ class sd_service(sd_unit_file):
 
     @classmethod
     def format_service_unit(cls, unit: str) -> str:
-        return unit if unit.endswith(".service") else ".".join([unit, "service"])  # noqa
+        return unit if unit.endswith(".service") else ".".join([unit, "service"])  # noqa:E501
 
     @classmethod
     def service_unit_path(cls, unit: str, folder: Optional[str] = None) -> str:
@@ -438,7 +438,7 @@ class sd_service(sd_unit_file):
         assert isinstance(folder, str), f"unexpected type: {type(folder)}"
 
         if allowed_dirs is not None:
-            assert folder in allowed_dirs, f"'{folder}' is not in {allowed_dirs}"  # noqa
+            assert folder in allowed_dirs, f"'{folder}' is not in {allowed_dirs}"  # noqa:E501
 
         assert os.path.isdir(folder), f"'{folder}' not exists or is file"
         return os.path.join(folder, cls.format_service_unit(unit))

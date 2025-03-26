@@ -26,21 +26,21 @@ class sd_unit_file_section:
     def __iter__(self):
         return iter(self.items)
 
-    def __getattr__(self, attr: str) -> Any:
-        try:
-            return object.__getattribute__(self, attr)
-        except AttributeError as e:
-            if attr in object.__getattribute__(self, "OPTIONS"):
-                return self.get_option(attr)
-            raise e
+    # def __getattr__(self, attr: str) -> Any:
+    #     try:
+    #         return object.__getattribute__(self, attr)
+    #     except AttributeError as e:
+    #         if attr in object.__getattribute__(self, "OPTIONS"):
+    #             return self.get_option(attr)
+    #         raise e
 
-    def __setattr__(self, attr: str, value: str) -> None:
-        try:
-            if attr in self.__getattribute__("OPTIONS"):
-                return self.set_option(attr, value)
-        except AttributeError:
-            pass
-        return super().__setattr__(attr, value)
+    # def __setattr__(self, attr: str, value: str) -> None:
+    #     try:
+    #         if attr in self.__getattribute__("OPTIONS"):
+    #             return self.set_option(attr, value)
+    #     except AttributeError:
+    #         pass
+    #     return super().__setattr__(attr, value)
 
     @property
     def name(self) -> str:
@@ -58,7 +58,7 @@ class sd_unit_file_section:
     def values(self) -> ValuesView[str]:
         return self.__section.values()
 
-    def get_option(self, option: str, fallback: Optional[str] = "") -> Union[str, Any]:  # noqa
+    def get_option(self, option: str, fallback: Optional[str] = "") -> Union[str, Any]:  # noqa:E501
         """Get an option value."""
         return self.__section.get(option, fallback)
 

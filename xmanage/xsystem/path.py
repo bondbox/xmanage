@@ -25,5 +25,5 @@ try:
             tstring = tabulate(tabular, headers=["name", "paths"])
             cmds.stdout(tstring)
         return 0
-except Exception:
-    pass
+except Exception:  # pragma: no cover
+    pass  # pragma: no cover

@@ -112,29 +112,31 @@ if shutil.which(CMD_SD_PATH):
         def __getitem__(self, name: str) -> Tuple[str, ...]:
             return self.__items[name]
 
-        def __getattr__(self, name: str) -> Tuple[str, ...]:
-            if name not in self.__names.values():
-                raise AttributeError(f"{CMD_SD_PATH} has no '{name}'")
-            item: __sd_path.table = getattr(self.table, name)
-            return self.__items[item.value]
+        # def __getattr__(self, name: str) -> Tuple[str, ...]:
+        #     if name not in self.__names.values():
+        #         raise AttributeError(f"{CMD_SD_PATH} has no '{name}'")
+        #     item: __sd_path.table = getattr(self.table, name)
+        #     return self.__items[item.value]
 
         @property
         def systemd_system_conf_dir(self) -> str:
-            return self.SYSTEMD_SYSTEM_CONF[0]
+            return self[self.table.SYSTEMD_SYSTEM_CONF.value][0]
 
         @property
         def systemd_system_unit_dirs(self) -> Tuple[str, ...]:
-            return self.SYSTEMD_SEARCH_SYSTEM_UNIT + self.SYSTEMD_SYSTEM_UNIT
+            return self[self.table.SYSTEMD_SEARCH_SYSTEM_UNIT.value] \
+                + self[self.table.SYSTEMD_SYSTEM_UNIT.value]
 
         @property
         def systemd_system_generator_dirs(self) -> Tuple[str, ...]:
-            return self.SYSTEMD_SEARCH_SYSTEM_GENERATOR \
-                + self.SYSTEMD_SYSTEM_GENERATOR
+            return self[self.table.SYSTEMD_SEARCH_SYSTEM_GENERATOR.value] \
+                + self[self.table.SYSTEMD_SYSTEM_GENERATOR.value]
 
         @property
         def systemd_system_dirs(self) -> Tuple[str, ...]:
-            return self.SYSTEMD_SYSTEM_CONF + self.systemd_system_unit \
-                + self.systemd_system_generator
+            return self[self.table.SYSTEMD_SYSTEM_CONF.value] \
+                + self[self.table.SYSTEMD_SYSTEM_UNIT.value] \
+                + self[self.table.SYSTEMD_SYSTEM_GENERATOR.value]
 
         @property
         def titles(self) -> List[str]:

@@ -19,8 +19,8 @@ subs: List[add_command] = list()
 try:
     from xmanage.xsystem.path import add_cmd_path
     subs.append(add_cmd_path)
-except Exception:
-    pass
+except Exception:  # pragma: no cover
+    pass  # pragma: no cover
 
 
 @add_command(__project__)
