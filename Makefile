@@ -42,7 +42,7 @@ pylint:
 	pylint $(shell git ls-files xmanage/*.py)
 flake8:
 	flake8 xmanage --count --select=E9,F63,F7,F82 --show-source --statistics
-	flake8 xmanage --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+	flake8 xmanage --count --exit-zero --max-complexity=15 --max-line-length=127 --statistics
 pytest:
 	pytest --cov=xmanage --cov-report=term-missing --cov-report=xml --cov-report=html --cov-config=.coveragerc --cov-fail-under=100
 pytest-clean:
