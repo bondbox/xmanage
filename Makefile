@@ -1,6 +1,6 @@
 MAKEFLAGS += --always-make
 
-VERSION := $(shell python3 -c "from xmanage.utils.attribute import __version__; print(__version__)")
+VERSION := $(shell python3 -c "from xmanage.attribute import __version__; print(__version__)")
 
 all: build reinstall test
 
