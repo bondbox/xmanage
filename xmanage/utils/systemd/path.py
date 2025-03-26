@@ -7,7 +7,7 @@ from typing import Dict
 from typing import List
 from typing import Tuple
 
-from xarg import singleton
+from xkits import singleton
 
 CMD_SD_PATH = "systemd-path"
 

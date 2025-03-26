@@ -1,2 +1,2 @@
-xarg-python >= 1.6.2
+xkits >= 2.4.2
 tabulate
