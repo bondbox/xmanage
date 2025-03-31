@@ -1,8 +1,8 @@
 # coding:utf-8
 
-from xmanage.utils.systemd.service import sd_uf_sec_service
-from xmanage.utils.systemd.unit import sd_uf_sec_install
-from xmanage.utils.systemd.unit import sd_uf_sec_unit
+from xmanage.systemd.service import sd_uf_sec_service
+from xmanage.systemd.unit import sd_uf_sec_install
+from xmanage.systemd.unit import sd_uf_sec_unit
 
 for section in [sd_uf_sec_unit, sd_uf_sec_install, sd_uf_sec_service]:
     for item in section.options:
