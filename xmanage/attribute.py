@@ -1,7 +1,7 @@
 # coding:utf-8
 
 __project__ = "xmanage"
-__version__ = "0.6"
+__version__ = "0.7"
 __urlhome__ = "https://github.com/bondbox/xmanage/"
 __description__ = "System and service management tool"
 
