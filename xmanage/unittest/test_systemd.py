@@ -46,6 +46,7 @@ WantedBy = multi-user.target"""
 
     @mock.patch.object(service.os.path, "exists")
     @mock.patch.object(service, "open", mock.mock_open())
+    @mock.patch.object(service.os, "system", mock.MagicMock())
     def test_sd_service_create_unit(self, mock_exists):
         mock_exists.side_effect = [False, True]
         object = service.sd_service.from_string("")
@@ -55,6 +56,7 @@ WantedBy = multi-user.target"""
     @mock.patch.object(service.os.path, "isfile")
     @mock.patch.object(service.os.path, "exists")
     @mock.patch.object(service.os, "remove", mock.MagicMock())
+    @mock.patch.object(service.os, "system", mock.MagicMock())
     def test_sd_service_delete_unit(self, mock_exists, mock_isfile):
         mock_isfile.side_effect = [True]
         mock_exists.side_effect = [True]

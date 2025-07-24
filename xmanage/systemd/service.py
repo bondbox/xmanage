@@ -456,6 +456,7 @@ class sd_service(sd_unit_file):
             hdl.write(f"# {now.strftime('%a %b %d %H:%M:%S CST %Y')}\n\n\n")
             self.parser.write(hdl)
 
+        os.system("systemctl daemon-reload")
         return filepath
 
     @classmethod
@@ -466,4 +467,5 @@ class sd_service(sd_unit_file):
         if os.path.isfile(filepath):
             os.remove(filepath)
 
+        os.system("systemctl daemon-reload")
         return not os.path.exists(filepath)
