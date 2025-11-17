@@ -426,6 +426,14 @@ class sd_service(sd_unit_file):
         return sd_service.from_string(open(file).read())
 
     @classmethod
+    def from_unit(cls, unit: str) -> "sd_service":
+        for folder in sd_path.systemd_system_dirs:
+            path: str = cls.service_unit_path(unit=unit, folder=folder)
+            if os.path.exists(path) and os.path.isfile(path):
+                return sd_service.from_file(path)
+        raise FileNotFoundError(f"'{unit}' not found.")
+
+    @classmethod
     def format_service_unit(cls, unit: str) -> str:
         return unit if unit.endswith(".service") else ".".join([unit, "service"])  # noqa:E501
 

@@ -66,10 +66,10 @@ WantedBy = multi-user.target"""
     @mock.patch.object(service.os.path, "isfile")
     @mock.patch.object(service.os.path, "exists")
     def test_sd_service(self, mock_exists, mock_isfile, mock_open):
-        mock_exists.side_effect = [True]
-        mock_isfile.side_effect = [True]
+        mock_exists.side_effect = [True, True]
+        mock_isfile.side_effect = [True, True]
         with mock.mock_open(mock_open, read_data=""):
-            object = service.sd_service.from_file("test.service")
+            object = service.sd_service.from_unit("test.service")
             self.assertIsInstance(object.parser, service.ConfigParser)
             self.assertIn("Unit", object.sections)
             self.assertIn("Install", object.sections)
@@ -287,6 +287,13 @@ WantedBy = multi-user.target"""
             self.assertEqual(object.service_section.USBFunctionDescriptors, "test")  # noqa:E501
             self.assertEqual(object.service_section.USBFunctionStrings, "test")
             self.assertEqual(object.service_section.WatchdogSec, "test")
+
+    @mock.patch.object(service.os.path, "isfile")
+    @mock.patch.object(service.os.path, "exists")
+    def test_sd_service_not_found(self, mock_exists, mock_isfile):
+        mock_exists.return_value = False
+        mock_isfile.return_value = False
+        self.assertRaises(FileNotFoundError, service.sd_service.from_unit, "test.service")  # noqa:E501
 
 
 if __name__ == "__main__":
