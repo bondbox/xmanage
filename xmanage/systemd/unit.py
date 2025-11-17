@@ -557,7 +557,7 @@ class sd_unit_file:
 
     @classmethod
     def read_string(cls, value: str) -> ConfigParser:
-        config: ConfigParser = ConfigParser()
+        config: ConfigParser = ConfigParser(strict=False)
         config.optionxform = lambda option: option  # type: ignore
         config.read_string(value)
         return config
